@@ -1,4 +1,4 @@
-import cls from "@/app/lib/cls";
+import nextClsx from "next-clsx";
 import "@/app/ui/style/globals.css";
 import SettingsHeader from "@/app/ui/components/SettingsHeader";
 
@@ -8,19 +8,23 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  const _cls = cls(style);
+  const clsx = nextClsx(style);
   return (
-    <div className={_cls`container`}>
-      <div>
-        <SettingsHeader />
+    <div className={clsx`layout`}>
+      <SettingsHeader />
+      <div className={clsx`children`}>
         {children}
       </div>
-    </div>
+    </div >
   );
 }
 
 const style = {
-  container: {
-    wrapper: `flex flex-col gap-6`,
+  layout: {
+    wrapper: `flex flex-col gap-0 w-full h-full`,
   },
+  children: {
+    wrapper: `[&::-webkit-scrollbar]:appearance-none overflow-hidden overflow-y-visible h-fit`,
+    padding: `pt-8`
+  }
 };
