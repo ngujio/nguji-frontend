@@ -24,7 +24,7 @@ const style = {
     wrapper: `flex flex-col gap-0 w-full h-full`,
   },
   children: {
-    wrapper: `[&::-webkit-scrollbar]:appearance-none overflow-hidden overflow-y-visible h-fit`,
+    wrapper: `[&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar]:appearance-none overflow-hidden overflow-y-auto h-fit w-full`,
     padding: `pt-8`
   }
 };
