@@ -1,26 +1,25 @@
 import { nanoid } from 'nanoid'
 import nextclsx from "next-clsx"
 import Link from "next/link"
-import { RiHome5Line } from "react-icons/ri"
 
 export default function Breadcrumbs({ pathname }) {
   const id = nanoid()
-  const clsx = nextclsx(style)
-  const pathSegments = pathname.split("/");
+  const clsx = nextclsx(style, { pathname })
+  const pathSegments = pathname.split("/")
   return (
-    <div className={clsx`current-path`}>
-      <RiHome5Line size={16} />
-      {pathSegments.filter(segment => segment !== "")
+    <div className={clsx`bcc`}>
+      <Link href="/" className={clsx`hl`}>~</Link>
+      {pathSegments
+        .filter(segment => segment !== "")
         .map((segment, i) => {
-          const lastSegment = pathSegments[pathSegments.length - 1]
-          const activeLocation = lastSegment === segment ? "activeLocation" : ""
-          const currentLocation = pathSegments.slice(0, pathSegments.findIndex(e => e === segment) + 1).join("/")
+          const active = pathSegments[pathSegments.length - 1] === segment ? "al" : ""
+          const href = pathSegments.slice(0, pathSegments.findIndex(e => e === segment) + 1).join("/")
           return (
             <div key={id + i}>
-              ›
+              /
               <Link
-                href={currentLocation}
-                className={clsx`${activeLocation}`}>
+                href={href}
+                className={clsx`${active}`}>
                 {segment}
               </Link>
             </div>
@@ -31,13 +30,16 @@ export default function Breadcrumbs({ pathname }) {
 }
 
 const style = {
-  "current-path": {
+  bcc: {
     padding: `ps-0 pe-2`,
     hover: `hover:cursor-default`,
-    wrapper: `w-fit h-6 flex justify-center items-center gap-1`,
+    wrapper: `w-fit h-6 flex justify-center items-center `,
     text: `text-[1.2rem] text-tertiary`,
   },
-  activeLocation: {
+  al: {
     text: `text-gray-50`
+  },
+  hl: {
+    [`text-gray-50`]: "/"
   }
 }
